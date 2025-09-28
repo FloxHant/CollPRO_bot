@@ -1,5 +1,6 @@
 from config import token
 import telebot
+from random import choice
 
 bot = telebot.TeleBot(token)
 
@@ -18,5 +19,9 @@ I am here to echo your kind words back to you. Just say anything nice and I'll s
 def echo_message(message):
     bot.reply_to(message, message.text)
 
+@bot.message_handler(commands=['coin'])
+def coin_handler(message):
+    coin = choice(["ОРЕЛ", "РЕШКА"])
+    bot.reply_to(message, coin)
 
 bot.infinity_polling()
