@@ -29,7 +29,7 @@ def start(message):
     else:   
         bot.send_message(message.chat.id, "Нужно отправить /attack в ответ на сообщение")
 
-@bot.message_handler(commands=['/info'])
+@bot.message_handler(commands=['info'])
 def info_handler(message):
     username = message.from_user.username
     if username in Pokemon.pokemons:
@@ -38,6 +38,13 @@ def info_handler(message):
     else:
         bot.send_message(message.chat.id, "У вас ещё нет покемона. Создайте его командой /go")
 
-bot.infinity_polling(none_stop=True)
+@bot.message_handler(commands=['feed'])
+def info_handler(message):
+    if message.from_user.username in Pokemon.pokemons.keys():
+        pok = Pokemon.pokemons [message.from_user.username]
+        bot.send_message(message.chat.id, pok.feed())
+
+bot.infinity_polling(none_stop=True)e)
+
 
 
