@@ -27,7 +27,17 @@ def start(message):
         result = pokemon_my.attack(pokemon.enemy)
         bot.send_message(message.chat.id, result)
     else:   
-        bot.send_message(message, chat.id, "Нужно отправить /attack в ответ на сообщение")
-        
+        bot.send_message(message.chat.id, "Нужно отправить /attack в ответ на сообщение")
+
+@bot.message_handler(commands=['/info'])
+def info_handler(message):
+    username = message.from_user.username
+    if username in Pokemon.pokemons:
+        pok = Pokemon.pokemons[username]
+        bot.send_message(message.chat.id, pok.info())
+    else:
+        bot.send_message(message.chat.id, "У вас ещё нет покемона. Создайте его командой /go")
+
 bot.infinity_polling(none_stop=True)
+
 
